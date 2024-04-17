@@ -4,18 +4,29 @@ module "cloudfront" {
 
   origin = {
     hat_web = {
-      domain_name = module.s3_bucket.s3_bucket_website_domain
+      domain_name           = module.s3_bucket.s3_bucket_bucket_regional_domain_name
+      origin_access_control = "hat_web"
+    }
+  }
+
+  create_origin_access_control = true
+  origin_access_control = {
+    hat_web = {
+      description      = "CloudFront access to S3"
+      origin_type      = "s3"
+      signing_behavior = "always"
+      signing_protocol = "sigv4"
     }
   }
 
   custom_error_response = [{
     error_code         = 404
     response_code      = 200
-    response_page_path = "index.html"
+    response_page_path = "/index.html"
     }, {
     error_code         = 403
     response_code      = 200
-    response_page_path = "index.html"
+    response_page_path = "/index.html"
   }]
 
   default_cache_behavior = {
@@ -24,4 +35,6 @@ module "cloudfront" {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
   }
+
+  default_root_object = "index.html"
 }

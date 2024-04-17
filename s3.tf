@@ -4,7 +4,7 @@ module "s3_bucket" {
 
   bucket = format(module.naming.result, "web-bucket")
 
-  force_destroy            = true
+  force_destroy            = false
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
   acl                      = "private"
@@ -14,12 +14,6 @@ module "s3_bucket" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-
-  website = {
-    index_document = "index.html"
-    error_document = "index.html"
-    routing_rules  = []
-  }
 
   versioning = {
     enabled = true

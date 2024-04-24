@@ -5,5 +5,5 @@ resource "linode_instance" "database" {
   type      = "g6-standard-2"
   root_pass = var.instance_password
 
-  stackscript_id = linode_stackscript.install_docker_mysql.id
+  stackscript_id = linode_stackscript.install_docker_postgresql.id
 }

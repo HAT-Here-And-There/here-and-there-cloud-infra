@@ -9,7 +9,9 @@
         "ecr:CompleteLayerUpload",
         "ecr:InitiateLayerUpload",
         "ecr:PutImage",
-        "ecr:UploadLayerPart"
+        "ecr:UploadLayerPart",
+        "ecr-public:*",
+        "sts:GetServiceBearerToken"
       ],
       "Resource": "*"
     }

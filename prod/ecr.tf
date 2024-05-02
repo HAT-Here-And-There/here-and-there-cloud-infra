@@ -1,5 +1,5 @@
 locals {
-  backend_service_list = ["user"]
+  backend_service_list = ["user", "tour", "chat"]
 }
 
 resource "aws_ecrpublic_repository" "ecr" {

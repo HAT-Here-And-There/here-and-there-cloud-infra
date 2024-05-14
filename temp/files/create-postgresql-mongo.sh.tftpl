@@ -6,3 +6,5 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt-get install docker-ce docker-ce-cli containerd.io -y
 docker run --rm -d -p 5432:5432 --name=postgresqldb -e POSTGRES_PASSWORD=${password} postgres:alpine
+docker run -it -d -p 27017:27017 --name=mongodb mongo --bind_ip 0.0.0.0
+exec > >(tee -i /var/log/stackscript.log)

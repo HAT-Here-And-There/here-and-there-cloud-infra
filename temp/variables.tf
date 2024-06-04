@@ -20,3 +20,14 @@ variable "environment" {
 variable "project_name" {
   description = "project name"
 }
+
+variable "mongo_username" {
+  description = "mongo username"
+  type        = string
+}
+
+variable "mongo_password" {
+  description = "mongo password"
+  type        = string
+
+}

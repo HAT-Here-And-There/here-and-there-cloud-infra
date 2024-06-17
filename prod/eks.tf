@@ -20,8 +20,6 @@ module "eks" {
     }
   }
 
-  node_security_group_id = module.sg_for_eks_node.security_group_id
-
   enable_cluster_creator_admin_permissions = true
 
   vpc_id                   = module.vpc.vpc_id

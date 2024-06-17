@@ -6,8 +6,19 @@ module "eks" {
   cluster_version                = "1.28"
   cluster_endpoint_public_access = true
 
-  create_cluster_security_group = true
-  create_node_security_group    = false
+  create_cluster_security_group                = true
+  create_node_security_group                   = true
+  node_security_group_enable_recommended_rules = true
+  node_security_group_additional_rules = {
+    bastion = {
+      from_port                = 22
+      to_port                  = 22
+      protocol                 = "tcp"
+      description              = "allow traffic from bastion host"
+      source_security_group_id = module.sg_for_bastion_host.security_group_id
+      type                     = "ingress"
+    }
+  }
 
   node_security_group_id = module.sg_for_eks_node.security_group_id
 
@@ -19,7 +30,7 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"
-    instance_types = ["t3.small"]
+    instance_types = ["t2.small"]
   }
 
   eks_managed_node_groups = {

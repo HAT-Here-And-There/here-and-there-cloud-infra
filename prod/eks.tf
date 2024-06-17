@@ -7,6 +7,9 @@ module "eks" {
   cluster_endpoint_public_access = true
 
   create_cluster_security_group = true
+  create_node_security_group    = false
+
+  node_security_group_id = module.sg_for_eks_node.security_group_id
 
   enable_cluster_creator_admin_permissions = true
 

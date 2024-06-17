@@ -98,3 +98,23 @@ module "sg_for_bastion_host" {
 
   egress_rules = ["all-all"]
 }
+
+module "sg_for_eks_node" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = format(module.naming.result, "eks-node-sg")
+  description = "sg for eks node"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      from_port                = 22
+      to_port                  = 22
+      protocol                 = "tcp"
+      description              = "allow traffic from bastion host"
+      source_security_group_id = module.sg_for_bastion_host.security_group_id
+    }
+  ]
+
+  egress_rules = ["all-all"]
+}

@@ -10,4 +10,6 @@ module "bastion_host" {
   vpc_security_group_ids      = [module.sg_for_bastion_host.security_group_id]
   associate_public_ip_address = true
   disable_api_stop            = false
+
+  key_name = aws_key_pair.key_pair.key_name
 }

@@ -13,6 +13,8 @@ resource "aws_docdb_cluster" "document_db_cluster" {
 
   enabled_cloudwatch_logs_exports = ["audit", "profiler"]
   port                            = 27017
+
+  db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.custom.name
 }
 
 resource "aws_docdb_subnet_group" "document_db_subnet_group" {
@@ -24,4 +26,15 @@ resource "aws_docdb_cluster_instance" "document_db" {
   identifier         = format(module.naming.result, "documentdb-instance")
   cluster_identifier = aws_docdb_cluster.document_db_cluster.id
   instance_class     = "db.t3.medium"
+}
+
+resource "aws_docdb_cluster_parameter_group" "custom" {
+  family      = "docdb5.0"
+  name        = format(module.naming.result, "documentdb-cluster-parameter-group")
+  description = "docdb cluster parameter group"
+
+  parameter {
+    name  = "tls"
+    value = "disabled"
+  }
 }

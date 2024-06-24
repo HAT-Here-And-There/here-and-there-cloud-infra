@@ -5,9 +5,9 @@ module "rds" {
   identifier = format(module.naming.result, "rds")
 
   engine               = "postgres"
-  engine_version       = "16"
-  family               = "postgres16" # DB parameter group
-  major_engine_version = "16"         # DB option group
+  engine_version       = "14"
+  family               = "postgres14" # DB parameter group
+  major_engine_version = "14"         # DB option group
   instance_class       = "db.t3.micro"
 
   db_name                     = var.db_name

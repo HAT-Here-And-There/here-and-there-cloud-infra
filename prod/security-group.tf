@@ -11,7 +11,7 @@ module "sg_for_elasticache" {
       to_port                  = 6379
       protocol                 = "tcp"
       description              = "allow traffic from eks"
-      source_security_group_id = module.eks.cluster_security_group_id
+      source_security_group_id = module.eks.node_security_group_id
     },
     {
       from_port                = 6379
@@ -38,7 +38,7 @@ module "sg_for_documentdb" {
       to_port                  = 27017
       protocol                 = "tcp"
       description              = "allow traffic from eks"
-      source_security_group_id = module.eks.cluster_security_group_id
+      source_security_group_id = module.eks.node_security_group_id
     },
     {
       from_port                = 27017
@@ -65,7 +65,7 @@ module "sg_for_rds" {
       to_port                  = 5432
       protocol                 = "tcp"
       description              = "allow traffic from eks"
-      source_security_group_id = module.eks.cluster_security_group_id
+      source_security_group_id = module.eks.node_security_group_id
     },
     {
       from_port                = 5432

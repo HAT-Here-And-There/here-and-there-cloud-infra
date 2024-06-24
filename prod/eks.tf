@@ -17,6 +17,25 @@ module "eks" {
       description              = "allow traffic from bastion host"
       source_security_group_id = module.sg_for_bastion_host.security_group_id
       type                     = "ingress"
+    },
+    ingress_from_control_plane = {
+      type = "ingress"
+      # Feel free to change these to your desired ports
+      # Port `0` and protocol `-1` mean that I trust the control plane enough to allow ingresses of any ports & protocols to my worker nodes
+      from_port = 0
+      to_port   = 0
+      protocol  = "-1"
+      # `cluster_security_group` is the security group that control plane uses
+      source_cluster_security_group = true
+    },
+    ping = {
+      type = "ingress"
+      # Feel free to change these to your desired ports
+      # Port `0` and protocol `-1` mean that I trust the control plane enough to allow ingresses of any ports & protocols to my worker nodes
+      from_port   = -1
+      to_port     = -1
+      protocol    = "ICMP"
+      cidr_blocks = ["0.0.0.0/0"]
     }
   }
 
